@@ -28,7 +28,7 @@ RUN npm install --omit=dev
 COPY . .
 
 # Expose the port Cloud Run expects
-ENV port =3000
+
 EXPOSE 3000
 
 # Start the application
