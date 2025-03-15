@@ -12,23 +12,45 @@
 # CMD ["node", "src/index.js"]
 
 
-# Use an official Node.js runtime as the base image
-FROM node:18-alpine
+# # Use an official Node.js runtime as the base image
+# FROM node:18-alpine
 
-# Set the working directory inside the container
+# # Set the working directory inside the container
+# WORKDIR /app
+
+# # Copy package.json and package-lock.json (if available) first
+# COPY package*.json ./
+
+# # Install dependencies (only production dependencies)
+# RUN npm install --omit=dev
+
+# # Copy the rest of the application code
+# COPY . .
+
+# # Expose the port Cloud Run expects
+
+# EXPOSE 3000
+
+# # Start the application
+# CMD ["node", "src/index.js"]
+
+
+# Use a lightweight Node.js image
+FROM node:18-slim
+
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available) first
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install dependencies (only production dependencies)
 RUN npm install --omit=dev
 
-# Copy the rest of the application code
+# Copy the rest of the application files
 COPY . .
 
-# Expose the port Cloud Run expects
+# Set environment variable
 
+# Expose the required port
 EXPOSE 3000
 
 # Start the application
