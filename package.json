@@ -1,7 +1,7 @@
 {
   "name": "profile-service",
   "version": "1.0.0",
-  "description": "Profile service for user management",
+  "description": "Profile service API",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
