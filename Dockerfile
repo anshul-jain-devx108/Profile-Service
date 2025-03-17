@@ -35,23 +35,46 @@
 # CMD ["node", "src/index.js"]
 
 
+# # Use a lightweight Node.js image
+# FROM node:18-slim
+
+# # Set working directory
+# WORKDIR /app
+
+# # Copy package files and install dependencies
+# COPY package*.json ./
+# RUN npm install --omit=dev
+
+# # Copy the rest of the application files
+# COPY . .
+
+# # Set environment variable
+
+# # Expose the required port
+# EXPOSE 3000
+
+# # Start the application
+# CMD ["node", "src/index.js"]
+
+
+
 # Use a lightweight Node.js image
-FROM node:18-slim
+FROM node:18-alpine 
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package.json and package-lock.json first (for Docker caching)
 COPY package*.json ./
-RUN npm install --omit=dev
 
-# Copy the rest of the application files
+# Install dependencies
+RUN npm install --omit=dev 
+
+# Copy the rest of the project files
 COPY . .
 
-# Set environment variable
-
-# Expose the required port
+# Expose the correct port
 EXPOSE 3000
 
 # Start the application
-CMD ["node", "src/index.js"]
+CMD ["npm", "start"]
